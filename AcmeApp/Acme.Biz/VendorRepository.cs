@@ -30,6 +30,22 @@ namespace Acme.Biz
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public T RetrieveValue<T> (string sql, T defaultValue) where T : struct
+        {
+            // Call the database to retrieve the value
+            // If no value is returned, return the default value
+
+            T value = defaultValue;
+
+            return value;
+        }
+
+        /// <summary>
         /// Save data for one vendor.
         /// </summary>
         /// <param name="vendor">Instance of the vendor to save.</param>
