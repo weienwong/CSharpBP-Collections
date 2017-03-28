@@ -57,7 +57,7 @@ namespace Acme.Biz
                 vendors.Add(new Vendor()
                 { VendorId = 1, CompanyName = "ABC Corp", Email = "abc@abc.com" });
                 vendors.Add(new Vendor()
-                { VendorId = 2, CompanyName = "XYZ Inc", Email = "xyz@xyz.inc" });
+                { VendorId = 2, CompanyName = "XYZ Inc", Email = "xyz@xyz.com" });
             }
 
             for (int i = 0; i < vendors.Count; i++)
@@ -101,6 +101,22 @@ namespace Acme.Biz
             };
 
             return vendors;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public T RetrieveValue<T> (string sql, T defaultValue) where T : struct
+        {
+            // Call the database to retrieve the value
+            // If no value is returned, return the default value
+
+            T value = defaultValue;
+
+            return value;
         }
 
         /// <summary>
