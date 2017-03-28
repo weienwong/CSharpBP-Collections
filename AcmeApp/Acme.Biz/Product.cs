@@ -16,6 +16,18 @@ namespace Acme.Biz
         #region Constructors
         public Product()
         {
+            var colorOptions = new List<string>()
+                                    { "Red", "Espresso", "White", "Navy" };
+
+            var states = new Dictionary<string, string>()
+            {
+                { "CA", "California" },
+                { "WA", "Washington" },
+                { "NY", "New York" },
+            };
+
+            Console.WriteLine(states);
+
         }
         public Product(int productId,
                         string productName,
@@ -84,8 +96,22 @@ namespace Acme.Biz
         /// </summary>
         /// <param name="markupPercent">Percent used to mark up the cost.</param>
         /// <returns></returns>
-        public decimal CalculateSuggestedPrice(decimal markupPercent) =>
-             this.Cost + (this.Cost * markupPercent / 100);
+        public OperationResult<decimal> CalculateSuggestedPrice(decimal markupPercent)
+        {
+            var message = "";
+            if (markupPercent <= 0m)
+            {
+                message = "Invalid markup percentage";
+            }
+            else if (markupPercent < 10)
+            {
+                message = "Below recommended markup percentage";
+            }
+
+            var value = this.Cost + (this.Cost * markupPercent / 100);
+
+            return new OperationResult<decimal>(value, message);
+        }
 
         public override string ToString()
         {

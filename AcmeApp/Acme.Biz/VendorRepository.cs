@@ -8,6 +8,7 @@ namespace Acme.Biz
 {
     public class VendorRepository
     {
+        private List<Vendor> vendors;
         /// <summary>
         /// Retrieve one vendor.
         /// </summary>
@@ -29,6 +30,79 @@ namespace Acme.Biz
             return vendor;
         }
 
+        public T RetreieveValue<T>(string sql, T defaultValue) where T : struct
+        {
+            T value = defaultValue;
+
+            return value;
+        }
+
+        public string RetreieveValue(string sql, string defaultValue)
+        {
+            string value = defaultValue;
+
+            return value;
+        }
+
+        /// <summary>
+        /// Retrieves all of the approved vendors
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Vendor> Retrieve()
+        {
+            if (vendors == null)
+            {
+                vendors = new List<Vendor>();
+
+                vendors.Add(new Vendor()
+                { VendorId = 1, CompanyName = "ABC Corp", Email = "abc@abc.com" });
+                vendors.Add(new Vendor()
+                { VendorId = 2, CompanyName = "XYZ Inc", Email = "xyz@xyz.inc" });
+            }
+
+            for (int i = 0; i < vendors.Count; i++)
+            {
+                Console.WriteLine(vendors[i]);
+            }
+
+            foreach (var vendor in vendors)
+            {
+                //Console.WriteLine(vendor);
+            }
+            
+            return vendors;
+        }
+        /// <summary>
+        /// Retrieves all of the vendors
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Vendor> RetrieveAll()
+        {
+            var vendors = new List<Vendor>()
+            {
+                { new Vendor()
+                    { VendorId = 1, CompanyName = "ABC Corp", Email = "abc@abc.com" }},
+                { new Vendor()
+                    { VendorId = 2, CompanyName = "XYZ Inc", Email = "xyz@xyz.com" }},
+                { new Vendor()
+                    { VendorId = 12, CompanyName = "EFG Ltd", Email = "efg@efg.com" }},
+                { new Vendor()
+                    { VendorId = 17, CompanyName = "HIJ AG", Email = "hij@hij.com" }},
+                { new Vendor()
+                    { VendorId = 22, CompanyName = "Amalgamated Toys", Email = "a@abc.com" } },
+                { new Vendor()
+                    { VendorId = 28, CompanyName = "Toy Blocks Inc", Email = "blocks@abc.com" } },
+                { new Vendor()
+                    { VendorId = 31, CompanyName = "Home Procucts Inc", Email = "home@abc.com" } },
+                { new Vendor()
+                    { VendorId = 35, CompanyName = "Car Toys", Email = "car@abc.com" } },
+                { new Vendor()
+                    { VendorId = 42, CompanyName = "Toys for Fun", Email = "fun@abc.com" } }
+            };
+
+            return vendors;
+        }
+
         /// <summary>
         /// Save data for one vendor.
         /// </summary>
@@ -42,5 +116,22 @@ namespace Acme.Biz
 
             return success;
         }
+
+        /// <summary>
+        /// Retrieves all of the approved vendors, one at a time
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Vendor> RetrieveWithIterator()
+        {
+            // Get the data from the database
+            this.Retrieve();
+
+            foreach (var vendor in vendors)
+            {
+                Console.WriteLine($"Vendor Id: {vendor.VendorId}");
+                yield return vendor;
+            }
+        }
+
     }
 }
